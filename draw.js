@@ -14,7 +14,6 @@ function Draw() {
     function drawLine(x1, y1, x2, y2,color) {
         ctx.beginPath();
         ctx.lineWidth = line.width;
-        ctx.lineCap = line.lineCap;
         ctx.strokeStyle = color || line.color;
         ctx.moveTo(x1,y1);
         ctx.lineTo(x2,y2);
@@ -24,7 +23,6 @@ function Draw() {
     function drawCircle(x,y,r,color) {
         ctx.beginPath();
         ctx.lineWidth = line.width;
-        ctx.lineCap = line.lineCap;
         ctx.strokeStyle = color || line.color;
         ctx.arc(x, y, r, 0, 2*Math.PI);
         ctx.stroke();
@@ -38,8 +36,7 @@ function Draw() {
         c.height = 400;
         c.width = 400;
         line = {
-            width: 10,
-            lineCap: "round",
+            width: 7,
             color: "white"
         };
         setInterval(drawBoard,1000/60);
@@ -86,10 +83,10 @@ function Draw() {
         var y = row * c.height/3 - c.height/6;
 
         if (xTurn) {
-            drawLine(x-20,y-20,x+20,y+20,"black");
-            drawLine(x+20,y-20,x-20,y+20,"black");
+            drawLine(x-20,y-20,x+20,y+20);
+            drawLine(x+20,y-20,x-20,y+20);
         } else {
-            drawCircle(x,y,30,"black");
+            drawCircle(x,y,30);
         }
     }
 

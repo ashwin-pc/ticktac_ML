@@ -19,10 +19,14 @@ canvas {
     font-family: 'Roboto', sans-serif;
     background-color: white;
     color: #202020;
-    margin-top: 20px;
     border-radius: 2px;
     /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.material.card > .rich-media {
+    padding: 20px;
+    background-color: #424242;
 }
 
 .material.card > .title {
@@ -59,4 +63,10 @@ canvas {
     display: block;
     height: 0;
     clear: both;
+}
+
+@media only screen and (max-width : 500px) {
+    #container {
+        margin-top: 0px;
+    }
 }
