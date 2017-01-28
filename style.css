@@ -24,6 +24,20 @@ canvas {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
+.material.card > .header {
+    font-weight: bold;
+    padding: 16px;
+}
+
+.material.card #ai {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: red;
+    display: inline-block;
+}
+
 .material.card > .rich-media {
     padding: 20px;
     background-color: #424242;
@@ -31,7 +45,7 @@ canvas {
 
 .material.card > .title {
     padding: 16px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     max-width: 280px;
     display: inline-block;
 }

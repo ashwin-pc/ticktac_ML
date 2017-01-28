@@ -86,7 +86,7 @@ function Draw() {
             drawLine(x-20,y-20,x+20,y+20);
             drawLine(x+20,y-20,x-20,y+20);
         } else {
-            drawCircle(x,y,30);
+            drawCircle(x,y,25);
         }
     }
 
