@@ -1,10 +1,7 @@
 function Game(){
-    
-    this.xs = [];
-    this.os = [];
+
     this.results = [];
-    this.over = false;
-    this.turnsLeft = 9;
+    this.turnsLeft;
     var xTurn = true;
     var resultEle = document.getElementById("result");
 
@@ -16,6 +13,9 @@ function Game(){
                 this.results[i][j] = 0;
             }
         }
+        this.turnsLeft = 9;
+        xTurn = true;
+        resultEle.innerHTML = "Lets Begin!";
     }
 
     this.validMove = function (col,row, xTurn) {
@@ -29,11 +29,6 @@ function Game(){
 
     this.checkIfWon = function () {
         var sumRow = 0 ,sumCol = 0;
-        
-        if (this.turnsLeft < 1 && this.turnsLeft > -1) {
-            resultEle.innerHTML = "No More turns Left";
-            return;
-        }
 
         for (var i = 0; i < 3; i++) {
             var sum = Math.abs(this.results[i][0] + this.results[i][1] + this.results[i][2]);
@@ -45,8 +40,14 @@ function Game(){
         var sumD2 = this.results[0][2] + this.results[1][1] + this.results[2][0];
 
         if (sumRow === 3 || sumRow === -3 || sumCol === 3 || sumCol === -3 || sumD1 === 3 || sumD1 === -3 || sumD2 === 3 || sumD2 === -3) {
-            resultEle.innerHTML = "Game Over";
+            resultEle.innerHTML = (xTurn) ? "Player 1 Won the game" : "Player 2 Won the game";
             this.turnsLeft = -1;
+            return;
+        }
+
+        if (this.turnsLeft === 0) {
+            resultEle.innerHTML = "No More turns Left";
+            return;
         }
     }
 
@@ -62,5 +63,10 @@ function Game(){
             game.checkIfWon();
             xTurn = !xTurn;
         }
+    }
+
+    this.reset = function () {
+        draw.clear();
+        this.init();
     }
 }

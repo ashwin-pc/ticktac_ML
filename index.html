@@ -4,11 +4,17 @@
         <title>Tic Tac</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        <canvas id="ticktac"></canvas>
-        <h1>Result: <span id="result"></span></h1>
+        <div id="container">
+            <canvas id="ticktac"></canvas>
+            <div class="material card">
+                <div class="title" id="result"></div>
+                <button type="button" onclick="game.reset()">reset</button>
+            </div>
+        </div>
     </body>
     <script src="draw.js"></script>
     <script src="game.js"></script>

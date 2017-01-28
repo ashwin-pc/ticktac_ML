@@ -11,19 +11,21 @@ function Draw() {
         drawLine(0, c.height*2/3, c.width, c.height*2/3);
     }
 
-    function drawLine(x1, y1, x2, y2) {
+    function drawLine(x1, y1, x2, y2,color) {
         ctx.beginPath();
         ctx.lineWidth = line.width;
         ctx.lineCap = line.lineCap;
+        ctx.strokeStyle = color || line.color;
         ctx.moveTo(x1,y1);
         ctx.lineTo(x2,y2);
         ctx.stroke();
     }
 
-    function drawCircle(x,y,r) {
+    function drawCircle(x,y,r,color) {
         ctx.beginPath();
         ctx.lineWidth = line.width;
         ctx.lineCap = line.lineCap;
+        ctx.strokeStyle = color || line.color;
         ctx.arc(x, y, r, 0, 2*Math.PI);
         ctx.stroke();
     }
@@ -37,7 +39,8 @@ function Draw() {
         c.width = 400;
         line = {
             width: 10,
-            lineCap: "round"
+            lineCap: "round",
+            color: "white"
         };
         setInterval(drawBoard,1000/60);
     }
@@ -83,14 +86,19 @@ function Draw() {
         var y = row * c.height/3 - c.height/6;
 
         if (xTurn) {
-            drawLine(x-20,y-20,x+20,y+20);
-            drawLine(x+20,y-20,x-20,y+20);
+            drawLine(x-20,y-20,x+20,y+20,"black");
+            drawLine(x+20,y-20,x-20,y+20,"black");
         } else {
-            drawCircle(x,y,30);
+            drawCircle(x,y,30,"black");
         }
     }
 
     this.toCell = function (col,row) {
         return (row * 3) + col - 4;
+    }
+
+    this.clear = function () {
+        ctx.clearRect(0, 0, c.width, c.height);
+        drawBoard(ctx);
     }
 }
