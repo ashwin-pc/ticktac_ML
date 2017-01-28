@@ -84,3 +84,23 @@ canvas {
         margin-top: 0px;
     }
 }
+
+.github-link {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.github-link .bg {
+    fill: #424242;
+    fill-opacity: 0.2;
+}
+
+.github-link .icon {
+    fill: #fff;
+    fill-opacity: 0.6;
+}
