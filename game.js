@@ -51,6 +51,11 @@ function Game(){
         }
     }
 
+    this.reset = function () {
+        draw.clear();
+        this.init();
+    }
+
     function selectCell(e) {
         var m = draw.getMousePos(e);
         var row = draw.getRow(m),
@@ -65,8 +70,4 @@ function Game(){
         }
     }
 
-    this.reset = function () {
-        draw.clear();
-        this.init();
-    }
 }
