@@ -26,8 +26,8 @@ function Draw() {
     function animateLine(x1,y1,x2,y2,ratio, speed, color) {
         var ratio = ratio || 0;
         var speed = speed || 0.1;
-        drawLine(x1,y1,x2,y2,ratio,color);
         if(ratio<1) {
+            drawLine(x1,y1,x2,y2,ratio,color);
             requestAnimationFrame(function() {
                 animateLine(x1,y1,x2,y2,ratio + speed,speed,color);
             });
@@ -47,8 +47,8 @@ function Draw() {
     function animateCircle(x,y,r,ratio, speed, color) {
         var ratio = ratio || 0;
         var speed = speed || 0.1;
-        drawCircle(x,y,r,ratio,color);
         if(ratio<1) {
+            drawCircle(x,y,r,ratio,color);
             requestAnimationFrame(function() {
                 animateCircle(x,y,r,ratio+speed,speed,color);
             });
