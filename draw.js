@@ -4,28 +4,55 @@ function Draw() {
 
 
     // Private Functions
-    function drawBoard(ctx) {
-        drawLine(c.width/3, 0, c.width/3, c.height);
-        drawLine(c.width*2/3, 0, c.width*2/3, c.height);
-        drawLine(0, c.height/3, c.width, c.height/3);
-        drawLine(0, c.height*2/3, c.width, c.height*2/3);
+    function drawBoard() {
+        animateLine(c.width/3, 0, c.width/3, c.height);
+        setTimeout(function(){animateLine(c.width*2/3, 0, c.width*2/3, c.height);},200);
+        setTimeout(function(){animateLine(0, c.height/3, c.width, c.height/3);},500);
+        setTimeout(function(){animateLine(0, c.height*2/3, c.width, c.height*2/3);},700);
     }
 
-    function drawLine(x1, y1, x2, y2,color) {
+    function drawLine(x1,y1,x2,y2,ratio) {
         ctx.beginPath();
-        ctx.lineWidth = line.width;
-        ctx.strokeStyle = color || line.color;
         ctx.moveTo(x1,y1);
+        ctx.lineWidth = line.width;
+        ctx.strokeStyle = line.color;
+        x2 = (ratio != null) ? x1 + ratio * (x2-x1) : x2;
+        y2 = (ratio != null) ? y1 + ratio * (y2-y1) : y2;
         ctx.lineTo(x2,y2);
         ctx.stroke();
+        ctx.closePath();
     }
 
-    function drawCircle(x,y,r,color) {
+    function animateLine(x1,y1,x2,y2,ratio, speed) {
+        var ratio = ratio || 0;
+        var speed = speed || 0.1;
+        drawLine(x1,y1,x2,y2,ratio);
+        if(ratio<1) {
+            requestAnimationFrame(function() {
+                animateLine(x1,y1,x2,y2,ratio + speed, speed);
+            });
+        }
+    }
+
+    function drawCircle(x,y,r,ratio) {
         ctx.beginPath();
         ctx.lineWidth = line.width;
-        ctx.strokeStyle = color || line.color;
-        ctx.arc(x, y, r, 0, 2*Math.PI);
+        ctx.strokeStyle = line.color;
+        var angle = (ratio != null) ? 2*Math.PI*ratio : 2*Math.PI;
+        ctx.arc(x, y, r, 0, angle);
         ctx.stroke();
+        ctx.closePath();
+    }
+
+    function animateCircle(x,y,r,ratio, speed) {
+        var ratio = ratio || 0;
+        var speed = speed || 0.1;
+        drawCircle(x,y,r,ratio);
+        if(ratio<1) {
+            requestAnimationFrame(function() {
+                animateCircle(x,y,r,ratio+speed,speed);
+            });
+        }
     }
 
     // Public Functions
@@ -39,7 +66,7 @@ function Draw() {
             width: 7,
             color: "white"
         };
-        setInterval(drawBoard,1000/60);
+        drawBoard();
     }
 
     this.getMousePos = function (evt) {
@@ -83,10 +110,12 @@ function Draw() {
         var y = row * c.height/3 - c.height/6;
 
         if (xTurn) {
-            drawLine(x-20,y-20,x+20,y+20);
-            drawLine(x+20,y-20,x-20,y+20);
+            animateLine(x-20,y-20,x+20,y+20);
+            setTimeout(function() {
+                animateLine(x+20,y-20,x-20,y+20);
+            }, 100);
         } else {
-            drawCircle(x,y,25);
+            animateCircle(x,y,25);
         }
     }
 
@@ -96,6 +125,6 @@ function Draw() {
 
     this.clear = function () {
         ctx.clearRect(0, 0, c.width, c.height);
-        drawBoard(ctx);
+        drawBoard();
     }
 }
