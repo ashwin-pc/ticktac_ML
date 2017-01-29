@@ -4,6 +4,10 @@ function Game(){
     this.turnsLeft;
     this.xTurn = true;
     var resultEle = document.getElementById("result");
+    this.games = {
+        x: 0,
+        o: 0
+    };
 
     this.init = function(clickFunction){
         document.getElementById("ticktac").addEventListener("click", clickFunction);
@@ -16,6 +20,7 @@ function Game(){
         this.turnsLeft = 9;
         this.xTurn = true;
         resultEle.innerHTML = "Lets Begin!";
+        this.updateScore();
     }
 
     this.validMove = function (col,row, xTurn) {
@@ -24,6 +29,20 @@ function Game(){
             return true;
         } else {
             return false;
+        }
+    }
+
+    this.updateScore = function(xTurn) {
+        if (xTurn == null) {
+            document.getElementById("player1Score").innerHTML = this.games.x;
+            document.getElementById("player2Score").innerHTML = this.games.o;
+            return;
+        }
+
+        if (xTurn) {
+            document.getElementById("player1Score").innerHTML = ++this.games.x;
+        } else {
+            document.getElementById("player2Score").innerHTML = ++this.games.o;
         }
     }
 
@@ -43,6 +62,7 @@ function Game(){
 
         if (sumRow === 3 || sumRow === -3 || sumCol === 3 || sumCol === -3 || sumD1 === 3 || sumD1 === -3 || sumD2 === 3 || sumD2 === -3) {
             resultEle.innerHTML = (this.xTurn) ? "Player 1 Won the game" : "Player 2 Won the game";
+            this.updateScore(this.xTurn);
             this.turnsLeft = -1;
             row = (sumRow === 3 || sumRow === -3) ? row : null;
             col = (sumCol === 3 || sumCol === -3) ? col : null;
@@ -58,6 +78,13 @@ function Game(){
     }
 
     this.reset = function () {
+        this.games.x = 0;
+        this.games.y = 0;
+        draw.clear();
+        this.init();
+    }
+
+    this.clear = function () {
         draw.clear();
         this.init();
     }

@@ -52,13 +52,18 @@ canvas {
 
 .material.card button {
     border-radius: 2px;
-    padding: 18px 26px;
+    padding: 10px 18px;
+    margin: 8px;
     font-size: 10pt;
-    color: #f44336;
+    color: #2196F3;
     background-color: #ffffff;
     text-transform: uppercase;
     border: none;
     float: right;
+}
+
+.material.card button.danger {
+    color: #f44336;
 }
 
 .material.card button:hover {
@@ -67,12 +72,26 @@ canvas {
 
 .material.card button:focus {
     outline: none;
-    background-color: #F44336;
-    color: white;
+}
+
+.material.card .player-score {
+    display: block;
+    width: 100%;
+    border-top: 1px solid #EEEEEE;
+}
+
+.material.card .player-score > div {
+    display: inline-block;
+    width: 42%;
+    padding: 16px;
+    float: left;
+    text-align: center;
+    font-size: 42pt;
+    color: #424242;
 }
 
 .material.card::after {
-    content: " "; /* Older browser do not support empty content */
+    content: " "; 
     visibility: hidden;
     display: block;
     height: 0;
@@ -84,6 +103,8 @@ canvas {
         margin-top: 0px;
     }
 }
+
+/* Github icon styles */
 
 .github-link {
     width: 40px;
