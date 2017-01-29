@@ -45,8 +45,8 @@ function Draw() {
     this.getMousePos = function (evt) {
         var rect = c.getBoundingClientRect();
         return {
-            x: evt.clientX - rect.left,
-            y: evt.clientY - rect.top
+          x: Math.floor((evt.clientX-rect.left)/(rect.right-rect.left)*c.width),
+          y: Math.floor((evt.clientY-rect.top)/(rect.bottom-rect.top)*c.height)
         };
     }
 
