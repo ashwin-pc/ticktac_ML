@@ -2,11 +2,11 @@ function Game(){
 
     this.results = [];
     this.turnsLeft;
-    var xTurn = true;
+    this.xTurn = true;
     var resultEle = document.getElementById("result");
 
-    this.init = function(){
-        document.getElementById("ticktac").addEventListener("click", selectCell);
+    this.init = function(clickFunction){
+        document.getElementById("ticktac").addEventListener("click", clickFunction);
         for (var i = 0; i < 3; i++){
             this.results[i] = [];
             for (var j = 0; j < 3; j++){
@@ -14,7 +14,7 @@ function Game(){
             }
         }
         this.turnsLeft = 9;
-        xTurn = true;
+        this.xTurn = true;
         resultEle.innerHTML = "Lets Begin!";
     }
 
@@ -40,7 +40,7 @@ function Game(){
         var sumD2 = this.results[0][2] + this.results[1][1] + this.results[2][0];
 
         if (sumRow === 3 || sumRow === -3 || sumCol === 3 || sumCol === -3 || sumD1 === 3 || sumD1 === -3 || sumD2 === 3 || sumD2 === -3) {
-            resultEle.innerHTML = (xTurn) ? "Player 1 Won the game" : "Player 2 Won the game";
+            resultEle.innerHTML = (this.xTurn) ? "Player 1 Won the game" : "Player 2 Won the game";
             this.turnsLeft = -1;
             return;
         }
@@ -54,20 +54,6 @@ function Game(){
     this.reset = function () {
         draw.clear();
         this.init();
-    }
-
-    function selectCell(e) {
-        var m = draw.getMousePos(e);
-        var row = draw.getRow(m),
-            col = draw.getCol(m),
-            cell= draw.toCell(col,row); // Cells are ordered 0-8... 0,1,2 in the first row
-
-        if (game.validMove(col,row,xTurn)) {
-            draw.drawSymbol(col,row,xTurn);
-            game.turnsLeft = (game.turnsLeft != 0) ? --game.turnsLeft : 0;
-            game.checkIfWon();
-            xTurn = !xTurn;
-        }
     }
 
 }
