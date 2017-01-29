@@ -79,7 +79,7 @@ function Game(){
 
     this.reset = function () {
         this.games.x = 0;
-        this.games.y = 0;
+        this.games.o = 0;
         draw.clear();
         this.init();
     }
