@@ -48,7 +48,6 @@ function Game(){
             col = (sumCol === 3 || sumCol === -3) ? col : null;
             if (sumD1 === 3 || sumD1 === -3) { dia = 1; } else if (sumD2 === 3 || sumD2 === -3) { dia = 2; } else { dia = null; };
             setTimeout (function(){draw.winningLine(col,row,dia);},200);
-            console.log(col,row,dia);
             return;
         }
 
