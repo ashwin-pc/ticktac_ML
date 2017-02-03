@@ -78,15 +78,19 @@ function Game(){
     }
 
     this.reset = function () {
-        this.games.x = 0;
-        this.games.o = 0;
-        draw.clear();
-        this.init();
+        modalActivate("Reset the game?","Are you sure you want to RESET the scores?", function () {
+            game.games.x = 0;
+            game.games.o = 0;
+            draw.clear();
+            game.init();
+        }); 
     }
 
     this.clear = function () {
-        draw.clear();
-        this.init();
+        modalActivate("Clear the board?","Are you sure you want to clear the board?",function () {
+            draw.clear();
+            game.init();
+        });
     }
 
 }

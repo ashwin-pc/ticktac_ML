@@ -17,3 +17,38 @@ function selectCell(e) {
         game.xTurn = !game.xTurn;
     }
 }
+
+// Modal functions
+function modalActivate(title, msg, callback) {
+    // reset addEventListeners for modal
+    removeElementEventListeners("alert");
+
+    var modal = document.getElementById("alert");
+    var container = document.getElementById("container");
+    var modalTitle = document.getElementById("modal-title");
+    var modalMsg = document.getElementById("modal-msg");
+    var modalYes = document.getElementById("modal-yes");
+    var modalNo = document.getElementById("modal-no");
+
+    modalTitle.innerHTML = title;
+    modalMsg.innerHTML = msg;
+    modal.classList.add("show");
+    container.classList.add("blur");
+
+    
+    modalYes.addEventListener("click",function (e) {
+        callback();
+        container.classList.remove("blur");
+        modal.classList.remove("show");
+    });
+    modalNo.addEventListener("click",function () {
+        container.classList.remove("blur");
+        modal.classList.remove("show");
+    })
+}
+
+function removeElementEventListeners(element) {
+    var el = document.getElementById(element),
+    elClone = el.cloneNode(true);
+    el.parentNode.replaceChild(elClone, el);
+}

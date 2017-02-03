@@ -4,7 +4,7 @@
         <title>Tic Tac</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
@@ -24,6 +24,22 @@
                 <div class="player-score">
                     <div id="player1Score"></div>
                     <div id="player2Score"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal-->
+        <div class="modal-container" id="alert">
+            <div class="material card modal">
+                <div class="header" id="modal-title">
+                    Alert!
+                </div>
+                <div class="body" id="modal-msg">
+                    Are you sure you want to clear the game
+                </div>
+                <div class="footer">
+                    <button type="button" id="modal-no">No</button>
+                    <button type="button" id="modal-yes">Yes</button>
                 </div>
             </div>
         </div>
