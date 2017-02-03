@@ -166,6 +166,35 @@ canvas {
     animation: scaleDown .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 }
 
+@media only screen and (max-width : 500px) {
+    #container {
+        margin-top: 0px;
+    }
+}
+
+/* Github icon styles */
+
+.github-link {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.github-link .bg {
+    fill: #424242;
+    fill-opacity: 0.2;
+}
+
+.github-link .icon {
+    fill: #fff;
+    fill-opacity: 0.6;
+}
+
+/* Animations */
 @keyframes fadeIn {
   0% {
     background:rgba(0,0,0,.0);
@@ -204,32 +233,4 @@ canvas {
   100% {
     background:rgba(0,0,0,.0);
   }
-}
-
-@media only screen and (max-width : 500px) {
-    #container {
-        margin-top: 0px;
-    }
-}
-
-/* Github icon styles */
-
-.github-link {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    display: block;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-}
-
-.github-link .bg {
-    fill: #424242;
-    fill-opacity: 0.2;
-}
-
-.github-link .icon {
-    fill: #fff;
-    fill-opacity: 0.6;
 }
