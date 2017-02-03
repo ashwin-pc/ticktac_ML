@@ -39,11 +39,19 @@ function modalActivate(title, msg, callback) {
     modalYes.addEventListener("click",function (e) {
         callback();
         container.classList.remove("blur");
-        modal.classList.remove("show");
+        modal.classList.add("out");
+        setTimeout(function() {
+            modal.classList.remove("show");
+            modal.classList.remove("out");
+        }, 500);
     });
     modalNo.addEventListener("click",function () {
         container.classList.remove("blur");
-        modal.classList.remove("show");
+        modal.classList.add("out");
+        setTimeout(function() {
+            modal.classList.remove("show");
+            modal.classList.remove("out");
+        }, 500);
     })
 }
 

@@ -108,10 +108,9 @@ canvas {
     position: fixed;
     z-index: 10;
     width: 100%;
-    height: 0%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.44);
     top: 0px;
-    transition: all 0.5s ease-in-out;
 }
 
 .blur {
@@ -130,7 +129,7 @@ canvas {
     top: 50%;
     background-color: white;
     left: 50%;
-    transform: translate(-50%,-60%);
+    transform: translate(-50%,-50%);
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     border-radius: 2px;
 }
@@ -151,10 +150,60 @@ canvas {
 
 .modal-container.show {
     display: block;
+    animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 }
 
 .modal-container.show .modal {
-    transform: translate(-50%, -50%);
+    opacity:0;
+    animation: scaleUp .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.modal-container.out {
+    animation: fadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.modal-container.out .modal {
+    animation: scaleDown .2s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    background:rgba(0,0,0,.0);
+  }
+  100% {
+    background:rgba(0,0,0,.7);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform:scale(.8);
+    opacity:0;
+  }
+  100% {
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform:scale(1);
+    opacity:1;
+  }
+  100% {
+    transform:scale(.8);
+    opacity:0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    background:rgba(0,0,0,.7);
+  }
+  100% {
+    background:rgba(0,0,0,.0);
+  }
 }
 
 @media only screen and (max-width : 500px) {
