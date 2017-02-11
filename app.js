@@ -1,8 +1,10 @@
 var game = new Game();
 var draw = new Draw();
+var ml = new Machine();
 
 draw.init();
 game.init(selectCell);
+ml.init();
 
 function selectCell(e) {
     var m = draw.getMousePos(e);

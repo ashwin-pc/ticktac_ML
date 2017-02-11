@@ -1,6 +1,7 @@
 function Game(){
 
     this.results = [];
+    this.history = [];
     this.turnsLeft;
     this.xTurn = true;
     var resultEle = document.getElementById("result");
@@ -8,6 +9,10 @@ function Game(){
         x: 0,
         o: 0
     };
+
+    function pushByValue(arr1,arr2) {
+        arr1.push(JSON.parse(JSON.stringify(arr2)));
+    }
 
     this.init = function(clickFunction){
         document.getElementById("ticktac").addEventListener("click", clickFunction);
@@ -26,6 +31,7 @@ function Game(){
     this.validMove = function (col,row, xTurn) {
         if (this.results[row-1][col-1] === 0 && this.turnsLeft != -1){
             this.results[row-1][col-1] = (xTurn) ? -1 : 1;
+            pushByValue(this.history,this.results);
             return true;
         } else {
             return false;
@@ -68,6 +74,7 @@ function Game(){
             col = (sumCol === 3 || sumCol === -3) ? col : null;
             if (sumD1 === 3 || sumD1 === -3) { dia = 1; } else if (sumD2 === 3 || sumD2 === -3) { dia = 2; } else { dia = null; };
             setTimeout (function(){draw.winningLine(col,row,dia);},200);
+            console.log(this.history);
             return;
         }
 
