@@ -164,7 +164,6 @@ function Machine() {
             }
         }, this);
 
-        console.log(bestSuccessor);
         return getCoords(bestSuccessor, board);
     }
 

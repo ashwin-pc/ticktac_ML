@@ -17,10 +17,7 @@ function selectCell(e) {
         draw.drawSymbol(col, row, game.xTurn);
         game.update(col, row, game.xTurn);
         if (game.hasWinner()) {
-            var winner = game.xTurn;
-            resultEle.innerHTML = (winner) ? "Player 1 Won the game" : "Player 2 Won the game";
-            game.updateScore(winner);
-            setTimeout (function(){draw.winningLine(game.getBoardData());},200);
+            winningTasks(game.xTurn);
             return;
         } else if (game.done()) {
             resultEle.innerHTML = "No More turns Left";
@@ -31,10 +28,9 @@ function selectCell(e) {
             setTimeout (function(){draw.drawSymbol(coords.col,coords.row,coords.xTurn)}, 500);
             game.update(coords.col,coords.row,coords.xTurn);
             if (game.hasWinner()) {
-                setTimeout (function(){draw.winningLine(game.getBoardData());}, 200);
+                winningTasks(!game.xTurn);
             }
         }
-
     }
 
     // if (game.validMove(col,row,game.xTurn)) {
@@ -46,6 +42,12 @@ function selectCell(e) {
     //     setTimeout (function(){draw.drawSymbol(coords.col,coords.row,coords.xTurn)}, 500);
     //     // game.xTurn = !game.xTurn;
     // }
+}
+
+function winningTasks(winner) {
+    resultEle.innerHTML = (winner) ? "Player 1 Won the game" : "Player 2 Won the game";
+    game.updateScore(winner);
+    setTimeout (function(){draw.winningLine(game.getBoardData());},200);
 }
 
 // Modal functions
