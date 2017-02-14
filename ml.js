@@ -1,6 +1,7 @@
 function Machine() {
     
     this.weights = [];
+    this.updateConstant = 0.1;
 
     // Private functions
     function pushByValue(arr1,arr2) {
@@ -77,18 +78,14 @@ function Machine() {
             return false;
         }
 
-        for (var i = 1; i < weights.length; i++) {
+        for (var i = 0; i < features.length; i++) {
             value += weights[i]*features[i];
         }
-        return value += weights[0];
+        return value += weights[features.length];
     }
 
     this.getWeights = function getWeights() {
         return this.weights;
-    }
-
-    this.setWeights = function setWeights(weights) {
-        this.weights = weights;
     }
 
     this.getFeatures = function getFeatures(board) {
@@ -100,19 +97,13 @@ function Machine() {
         // x6 = number of instances of 3 os in a row
 
         var possibilities = [];
-        var features = {
-            x1 : 0,      
-            x2 : 0,
-            x3 : 0,
-            x4 : 0,
-            x5 : 0,
-            x6 : 0,
-            length : 6
-        }
+        var features = [0,0,0,0,0,0];
 
         possibilities = possibilities.concat(getRows(board));
         possibilities = possibilities.concat(getColumns(board));
         possibilities = possibilities.concat(getDiagonals(board));
+
+        console.log(possibilities);
 
         possibilities.forEach(function(possibility) {
             var zeros = 0
@@ -122,14 +113,14 @@ function Machine() {
                 if      (entry == 0)    { zeros += 1 }
                 else if (entry == -1)    { Xs += 1 }
                 else if (entry == 1)   { Os += 1 }
-
-                if      (Xs == 2 && zeros == 1) {   features.x1 += 1;   }
-                else if (Os == 2 && zeros == 1) {   features.x2 += 1;   }
-                else if (Xs == 1 && zeros == 2) {   features.x3 += 1;   }
-                else if (Os == 1 && zeros == 2) {   features.x4 += 1;   }
-                else if (Xs == 3)               {   features.x5 += 1;   }
-                else if (Os == 3)               {   features.x6 += 1;   }
             });
+
+            if      (Xs == 2 && zeros == 1) {   features[0] += 1;   }
+            else if (Os == 2 && zeros == 1) {   features[1] += 1;   }
+            else if (Xs == 1 && zeros == 2) {   features[2] += 1;   }
+            else if (Os == 1 && zeros == 2) {   features[3] += 1;   }
+            else if (Xs == 3)               {   features[4] += 1;   }
+            else if (Os == 3)               {   features[5] += 1;   }
         }, this);
 
         return features;
@@ -152,19 +143,59 @@ function Machine() {
     }
 
     this.chooseMove = function (board, xTurn) {
+        var self = this;
         var successors = this.getSuccesors(board, xTurn);
         var bestSuccessor = successors[0];
         var bestValue = this.evaluateBoard(successors[0]);
         
         successors.forEach(function(successor) {
-            var value = this.evaluateBoard(board);
+            var value = self.evaluateBoard(successor);
+            // console.log(value, bestValue);
+            console.log(value, successor, self.weights, self.getFeatures(successor));
+            
             if (value > bestValue) {
                 bestValue = value;
                 bestSuccessor = successor;
             }
-        }, this);
+        });
 
         return getCoords(bestSuccessor, board);
+    }
+
+    this.updateWeights = function (history, winner) {
+        var self = this;
+        var slope = 100/history.length;
+
+        for (var i = 0; i < history.length ; i++) {
+            var vTrain = (winner) ? slope*(i+1) : -(slope*(i+1));
+            var vEst = self.evaluateBoard(history[i]);
+            calc(history[i], vTrain, vEst);
+        }
+
+        // Helper calc function
+        function calc(board, vTrain, vEst) {
+            var features = self.getFeatures(board);
+            var weights = self.getWeights();
+
+            if ((weights.length - features.length) !== 1) {
+                return false;
+            }
+
+            for (var i = 0; i < features.length; i++) {
+                weights[i] = weights[i] + self.updateConstant * (vTrain - vEst) * features[i];
+            }
+
+            weights[features.length] = weights[features.length] + self.updateConstant * (vTrain - vEst);
+            console.log(vTrain, vEst, features);
+
+            // console.log(vTrain);
+        }
+
+        // console.log(self.weights);
+    }
+
+    this.train = function (count) {
+        
     }
 
 }
