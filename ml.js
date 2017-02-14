@@ -195,7 +195,7 @@ function Machine() {
     }
 
     this.train = function (count) {
-        
+        var trainer = new Game();
     }
 
 }

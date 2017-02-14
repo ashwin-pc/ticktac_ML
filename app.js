@@ -4,7 +4,9 @@ var ml = new Machine();
 var resultEle = document.getElementById("result");
 
 draw.init();
-game.init(selectCell);
+game.init({
+    id: "result"
+}, selectCell);
 ml.init([0.5,0.5,0.5,0.5,0.5,0.5,0.5]);
 
 function selectCell(e) {
