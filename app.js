@@ -1,8 +1,13 @@
 var game = new Game();
 var draw = new Draw();
+var ml = new Machine();
+var resultEle = document.getElementById("result");
 
 draw.init();
-game.init(selectCell);
+game.init({
+    id: "result"
+}, selectCell);
+ml.init([0.5,0.5,0.5,0.5,0.5,0.5,0.5]);
 
 function selectCell(e) {
     var m = draw.getMousePos(e);
@@ -10,12 +15,42 @@ function selectCell(e) {
         col = draw.getCol(m),
         cell= draw.toCell(col,row); // Cells are ordered 0-8... 0,1,2 in the first row
 
-    if (game.validMove(col,row,game.xTurn)) {
-        draw.drawSymbol(col,row,game.xTurn);
-        game.turnsLeft = (game.turnsLeft != 0) ? --game.turnsLeft : 0;
-        game.checkIfWon();
-        game.xTurn = !game.xTurn;
+    if (!game.done() && game.validMove(col, row)) {
+        draw.drawSymbol(col, row, game.xTurn);
+        game.update(col, row, game.xTurn);
+        if (game.hasWinner()) {
+            winningTasks(game.xTurn);
+            return;
+        } else if (game.done()) {
+            resultEle.innerHTML = "No More turns Left";
+            return;
+        } else {
+            // Machine Plays
+            var coords = ml.chooseMove(game.results, !game.xTurn);
+            setTimeout (function(){draw.drawSymbol(coords.col,coords.row,coords.xTurn)}, 500);
+            game.update(coords.col,coords.row,coords.xTurn);
+            if (game.hasWinner()) {
+                winningTasks(!game.xTurn);
+            }
+        }
     }
+
+    // if (game.validMove(col,row,game.xTurn)) {
+    //     draw.drawSymbol(col,row,game.xTurn);
+    //     game.turnsLeft = (game.turnsLeft != 0) ? --game.turnsLeft : 0;
+    //     game.checkIfWon();
+    //     var coords = ml.chooseMove(game.results, !game.xTurn);
+    //     game.results = coords.board;
+    //     setTimeout (function(){draw.drawSymbol(coords.col,coords.row,coords.xTurn)}, 500);
+    //     // game.xTurn = !game.xTurn;
+    // }
+}
+
+function winningTasks(winner) {
+    resultEle.innerHTML = (winner) ? "Player 1 Won the game" : "Player 2 Won the game";
+    game.updateScore(winner);
+    setTimeout (function(){draw.winningLine(game.getBoardData());},200);
+    ml.updateWeights(game.history, !winner)
 }
 
 // Modal functions

@@ -128,7 +128,11 @@ function Draw() {
         drawBoard();
     }
 
-    this.winningLine = function (col, row, dia) {
+    this.winningLine = function (data) {
+        var col = data.col;
+        var row = data.row;
+        var dia = data.dia;
+
         if (col != null) {
             var x = col * c.width/3 - c.width/6;
             var y1 = 1 * c.height/3 - c.height/6;
