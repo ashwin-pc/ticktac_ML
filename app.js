@@ -49,7 +49,7 @@ function selectCell(e) {
 function winningTasks(winner) {
     resultEle.innerHTML = (winner) ? "Player 1 Won the game" : "Player 2 Won the game";
     game.updateScore(winner);
-    setTimeout (function(){draw.winningLine(game.getBoardData());},200);
+    setTimeout (function(){draw.winningLine(game.getBoardData());},500);
     ml.updateWeights(game.history, !winner)
 }
 
